@@ -177,7 +177,7 @@ replaceLineInFileUnderDirectory(){
 }
 
 # This function is used to convert argb color to hex color
-function argbColorToHexColor(){
+argbColorToHexColor(){
 
 	local result=""
 
