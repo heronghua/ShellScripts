@@ -214,7 +214,7 @@ logPaint(){
 	
 	done<&0;
 	
-#exec 0&-;
+	exec 0>&-;
 
 
 }
