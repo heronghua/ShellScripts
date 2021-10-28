@@ -193,6 +193,10 @@ argbColorToHexColor(){
 
 
 logPaint(){
+	if [ $# -gt 0 ];then
+		exec 0<$1;
+	fi
+	
 	while read line
 	do
 	  if [[ $line =~ ^[0-9]{2}-[0-9]{2}\ [0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}\ +[0-9]+\ +[0-9]+\ +I ]];then
@@ -208,7 +212,10 @@ logPaint(){
 		echo -e "\033[33m $line \033[0m"
 	  fi
 	
-	done <$1
+	done<&0;
+	
+#exec 0&-;
+
 
 }
 
