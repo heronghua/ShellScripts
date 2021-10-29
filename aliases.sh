@@ -55,6 +55,13 @@ sendEmail(){
         RCPTTO=$1 # 收件人地址
         username_base64="aGVyb25naHVhMTk4OUAxMjYuY29t" # 用户名base64编码
         password_base64="$MAIL_126_PWD_BASE64_ENCODED" # 密码base64编码
+		#read content from inputstream
+		if [ $# -gt 2 ];then
+		  exec 0<$2;
+		fi
+		content=$(cat<&0)
+		exec 0>&-
+
         local_ip=`ifconfig|grep Bcast|awk -F: '{print $2}'|awk -F " " '{print $1}'|head -1`
         local_name=`uname -n`
         ( for i in "ehlo $smtp_domain" "AUTH LOGIN" "$username_base64" "$password_base64" "MAIL FROM:<$FROM>" "RCPT TO:<$RCPTTO>" "DATA";do
@@ -65,6 +72,7 @@ sendEmail(){
         echo "From:<$FROM>"
         echo "To:<$RCPTTO>"
         echo ""
+		echo "content : $content"
         echo "server $local_name up, ip:$local_ip"
         echo "."
         sleep 2
