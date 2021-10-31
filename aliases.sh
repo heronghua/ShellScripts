@@ -5,6 +5,7 @@ alias reboot='shutdown -r'
 alias mat="nohup /opt/mat/MemoryAnalyzer >/dev/null 2>&1 &"
 alias sendEmailUsing12Account="sendEmail heronghua1989@126.com"
 
+export TOOLS_FOR_AOSP_BUILD="git-core gnupg flex bison gperf build-essential zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip"
 
 echoGreen(){
 
@@ -60,6 +61,8 @@ sendEmail(){
 		  exec 0<$2;
 		fi
 		content=$(cat<&0)
+		#waiting inputstream read successfully
+		wait
 		exec 0>&-
 
         local_ip=`ifconfig|grep Bcast|awk -F: '{print $2}'|awk -F " " '{print $1}'|head -1`
