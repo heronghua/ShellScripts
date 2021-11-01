@@ -4,6 +4,7 @@
 alias reboot='shutdown -r'
 alias mat="nohup /opt/mat/MemoryAnalyzer >/dev/null 2>&1 &"
 alias sendEmailUsing12Account="sendEmail heronghua1989@126.com"
+alias adb="adb wait-for-device"
 
 export TOOLS_FOR_AOSP_BUILD="git-core gnupg flex bison gperf build-essential zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip"
 
@@ -172,9 +173,7 @@ replaceLineInFileUnderDirectory(){
 	if [ -f $rawDirectory ];then
 
 		LOGI "File detected $rawDirectory"
-		cat $rawDirectory|sed "s/$lineFrom/$lineTo/">tmp
-		cat tmp>$rawDirectory
-		rm tmp
+		sed -i "s/$lineFrom/$lineTo/g" $rawDirectory
 
 	elif [ -d $rawDirectory ];then
 		LOGI "Sub directory \"$rawDirectory\" found"
