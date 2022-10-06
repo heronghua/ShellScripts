@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 alias reboot='shutdown -r'
 alias mat="nohup /opt/mat/MemoryAnalyzer >/dev/null 2>&1 &"
 alias sendEmailUsing12Account="sendEmail heronghua1989@126.com"
@@ -229,3 +227,16 @@ logPaint(){
 
 }
 
+
+
+flashLoad(){
+	if [ "$1" == "" ];then
+	    return 0
+	fi
+		
+	adb reboot bootloader
+	export ANDROID_PRODUCT_OUT=$1
+	sleep 10
+    fastboot -w flashall
+
+}
