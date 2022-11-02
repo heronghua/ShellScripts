@@ -6,47 +6,6 @@ alias adb="adb wait-for-device"
 
 export TOOLS_FOR_AOSP_BUILD="git-core gnupg flex bison gperf build-essential zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc unzip"
 
-echoGreen(){
-
-	echo -e "\033[32m $1 \033[0m"
-
-}
-
-echoRed(){
-
-	echo -e "\033[31m $1 \033[0m"
-}
-
-LOGI(){
-	if [ ! $DEBUG == "" ];then
-		echo -e "\033[32m $1 \033[0m"
-	fi
-
-}
-
-LOGE(){
-	if [ ! $DEBUG == "" ];then
-		echo -e "\033[31m $1 \033[0m"
-	fi
-
-}
-
-switchJava(){
-
-
-        currentJavaVersion=`java -version 2>&1 | sed '1!d' | sed -e 's/"//g' | awk '{print $3}'`
-
-        if [[ $currentJavaVersion == 1.8* ]];then
-            export JAVA_HOME=JDK13_HOME
-        fi
-
-        if [[ $currentJavaVersion == 13 ]];then
-            export JAVA_HOME=JDK1_8_HOME
-        fi
-        source /etc/profile
-        echo  "java has completely changed from ${currentJavaVersion} to `which java`"
-}
-
 sendEmail(){
 
         smtp="smtp.126.com 25" # 邮件服务器地址+25端口
@@ -198,36 +157,6 @@ argbColorToHexColor(){
 
 	printf "The result is :\n\n$result\nAnd cliped to clipboard"
 }
-
-
-logPaint(){
-	if [ $# -gt 0 ];then
-		exec 0<$1;
-	fi
-	
-	while read line
-	do
-	  if [[ $line =~ ^[0-9]{2}-[0-9]{2}\ [0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}\ +[0-9]+\ +[0-9]+\ +I ]];then
-		echo -e "\033[32m $line \033[0m"
-	  fi
-	  if [[ $line =~ ^[0-9]{2}-[0-9]{2}\ [0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}\ +[0-9]+\ +[0-9]+\ +D ]];then
-		echo -e "\033[34m $line \033[0m"
-	  fi
-	  if [[ $line =~ ^[0-9]{2}-[0-9]{2}\ [0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}\ +[0-9]+\ +[0-9]+\ +E ]];then
-		echo -e "\033[31m $line \033[0m"
-	  fi
-	  if [[ $line =~ ^[0-9]{2}-[0-9]{2}\ [0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{3}\ +[0-9]+\ +[0-9]+\ +W ]];then
-		echo -e "\033[33m $line \033[0m"
-	  fi
-	
-	done<&0;
-	
-	exec 0>&-;
-
-
-}
-
-
 
 flashLoad(){
 	if [ "$1" == "" ];then
