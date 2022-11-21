@@ -3,7 +3,7 @@
 #DEBUG is 010
 #VERBOSE is 100
 #VERBOSE open all DEBUG open DEBUG and INFO ,Default INFO open
-export LOG_LEVEL=1
+export LOG_LEVEL=4
 
 echoGreen(){
 
